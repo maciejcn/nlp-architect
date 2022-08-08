@@ -23,8 +23,9 @@ import spacy
 from nltk import WordNetLemmatizer
 from nltk.stem.snowball import EnglishStemmer
 from spacy.cli.download import download as spacy_download
-from spacy.lang.en import LEMMA_EXC, LEMMA_INDEX, LEMMA_RULES
-from spacy.lemmatizer import Lemmatizer
+from spacy.lang.en import English
+#from spacy.lang.en import LEMMA_EXC, LEMMA_INDEX, LEMMA_RULES
+#from spacy.lemmatizer import Lemmatizer
 from nlp_architect.utils.generic import license_prompt
 from joblib import Parallel, delayed
 from functools import partial
@@ -200,7 +201,7 @@ class SpacyInstance:
 
     def __init__(
         self,
-        model="en",
+        model="en_core_web_sm",
         disable=None,
         display_prompt=True,
         n_jobs=8,
@@ -280,7 +281,9 @@ class SpacyInstance:
 
 stemmer = EnglishStemmer()
 lemmatizer = WordNetLemmatizer()
-spacy_lemmatizer = Lemmatizer(LEMMA_INDEX, LEMMA_EXC, LEMMA_RULES)
+#spacy_lemmatizer = Lemmatizer(LEMMA_INDEX, LEMMA_EXC, LEMMA_RULES)
+
+spacy_lemmatizer = WordNetLemmatizer()
 p = re.compile(r"[ \-,;.@&_]")
 
 
@@ -324,7 +327,7 @@ def spacy_normalizer(text, lemma=None):
         run.
     """
     if not str(text).isupper() or not str(text).endswith("S") or not len(text.split()) == 1:
-        tokens = list(filter(lambda x: len(x) != 0, p.split(text.strip())))
+        tokens = list(filter(lambda x: len(x) != 0, p.split(text.strip())))  
         if lemma:
             lemma = lemma.split(" ")
             text = " ".join([stemmer.stem(lem) for lem in lemma])

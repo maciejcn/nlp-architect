@@ -346,7 +346,7 @@ class SpacyNPAnnotator(object):
         for p in nlp.pipe_names:
             if p not in ["tagger"]:
                 nlp.remove_pipe(p)
-        nlp.add_pipe(nlp.create_pipe("sentencizer"), first=True)
+        nlp.add_pipe("sentencizer", first=True) #TODO
         nlp.add_pipe(
             NPAnnotator.load(
                 _model_path, settings_path, batch_size=batch_size, use_cudnn=use_cudnn

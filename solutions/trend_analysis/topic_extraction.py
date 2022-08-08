@@ -29,7 +29,7 @@ from nlp_architect.utils.embedding import FasttextEmbeddingsModel
 from nlp_architect.utils.io import validate_existing_directory
 from nlp_architect.utils.text import SpacyInstance
 
-from .np_scorer import NPScorer
+from np_scorer import NPScorer
 
 logger = logging.getLogger(__name__)
 

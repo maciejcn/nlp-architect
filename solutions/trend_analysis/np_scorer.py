@@ -22,7 +22,7 @@ from nlp_architect import LIBRARY_OUT
 from nlp_architect.pipelines.spacy_np_annotator import NPAnnotator, get_noun_phrases
 from nlp_architect.utils.io import download_unlicensed_file
 from nlp_architect.utils.text import SpacyInstance
-from .scoring_utils import TextSpanScoring
+from scoring_utils import TextSpanScoring
 
 nlp_chunker_url = "https://d2zs9tzlek599f.cloudfront.net/models/chunker/"
 chunker_model_dat_file = "model_info.dat.params"
@@ -38,7 +38,7 @@ class NPScorer(object):
         else:
             self.nlp = parser
 
-        self.nlp.add_pipe(self.nlp.create_pipe("sentencizer"), first=True)
+        self.nlp.add_pipe("sentencizer", first=True) #TODO
         _path_to_model = path.join(chunker_local_path, chunker_model_file)
         if not path.exists(chunker_local_path):
             makedirs(chunker_local_path)
